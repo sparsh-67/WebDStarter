@@ -56,6 +56,9 @@ form {
   margin-left: 20px;
 }
 
+.checkForm {
+  text-align: left;
+}
 button {
   min-height: 50px;
   width: 50px;

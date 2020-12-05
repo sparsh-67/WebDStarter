@@ -4,6 +4,7 @@ const app=express();
 const date=require(__dirname+'/date.js');
 const mongoose=require('mongoose');
 const URL='mongodb://127.0.0.1/todoListDb';
+const _=require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -33,7 +34,7 @@ app.get('/',function(req,res){
 })
 app.post('/',function(req,res){
   let item=req.body.item;
-  let btn=req.body.btn;
+  let btn=_.capitalize(req.body.btn);
   const newItem=new Item({name:item});
   if(btn=='Today'){
   Item.create(newItem,function(err,docs){
@@ -50,8 +51,25 @@ app.post('/',function(req,res){
   })
 }
 })
+app.post('/delete',function(req,res){
+  let listName=_.capitalize(req.body.listName);
+  let itemId=req.body.itemId;
+  if(listName=='Today'){
+    Item.deleteOne({_id:itemId},function(err){
+      if(err)console.error(err);
+      res.redirect('/');
+    })
+  }else{
+  List.findOne({listName:listName},function(err,list){
+    if(err)console.error(err);
+    list.items.pull(itemId);
+    list.save();
+    res.redirect('/'+listName);
+  })
+}
+})
 app.get('/:newTodoList',function(req,res){
-  const newTodoList=req.params.newTodoList;
+  const newTodoList=_.capitalize(req.params.newTodoList);
   List.findOne({listName:newTodoList},function(err,list){
     if(err)console.error(err);
     if(!list){

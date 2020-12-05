@@ -4,9 +4,17 @@
 </div>
 <div class="box">
   <% for(var i=0;i<list.length;i++){%>
+    <form class="" action="/delete" method="post">
+    <div class="item">
 
-     <input type="checkbox" name="" value="">
+
+     <input type="checkbox" name="listName" value="<%=kindOfDate%>" onChange="this.form.submit()">
      <p><%= list[i].name %></p>
+     </div>
+     <input type="hidden" name="itemId" value="<%=list[i]._id%>">
+    </form>
+
+
   <%}%>
 
   <form  action="/" method="post">
