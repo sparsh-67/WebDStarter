@@ -1,0 +1,18 @@
+<%- include('header'); -%>
+<div class="box" id ="heading">
+  <h1><%=kindOfDate%>!</h1>
+</div>
+<div class="box">
+  <% for(var i=0;i<list.length;i++){%>
+
+     <input type="checkbox" name="" value="">
+     <p><%= list[i].name %></p>
+  <%}%>
+
+  <form  action="/" method="post">
+    <input type="text" name="item">
+    <button type="submit" name="btn" value=<%=kindOfDate%>>+</button>
+  </form>
+
+</div>
+<%- include('footer'); -%>
