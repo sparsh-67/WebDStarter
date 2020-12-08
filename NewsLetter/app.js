@@ -8,7 +8,7 @@ const app=express();
 const mailchimp = require('@mailchimp/mailchimp_marketing');
 
 mailchimp.setConfig({
-  apiKey: '9779bae6a6cd6ef7ca8e479387392320-us7',
+  apiKey: '',
   server: 'us7',
 });
 
@@ -30,7 +30,7 @@ app.post('/',function(req,res){
   const options = {
     method : 'POST',
     headers : {
-      'Authorization' : 'Basic c3BhcnNoIDogNjRjNWZlYTYxM2E4MDU3MzE5YWEzODJhZjAzYzY1MzItdXM3'
+      'Authorization' : 'Basic'
     }
   }
   const data={
@@ -45,7 +45,7 @@ app.post('/',function(req,res){
     ]
   }
   const jsonData=JSON.stringify(data);
-  const url='https://us7.api.mailchimp.com/3.0/lists/4c2a60f346';
+  const url='https://us7.api.mailchimp.com/3.0/lists/';
   const request=https.request(url,options,function(response){
     response.on("data",function(data){
       console.log(JSON.parse(data));
@@ -62,5 +62,3 @@ app.post('/failure',function(req,res){
 app.listen(process.env.PORT||3000,function(){
   console.log('service started successfully!');
 })
-//4c2a60f346
-//9779bae6a6cd6ef7ca8e479387392320-us7
